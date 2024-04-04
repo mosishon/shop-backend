@@ -10,7 +10,7 @@ from pytz import timezone
 # Secret key for encoding and decoding JWT tokens
 SECRET_KEY = settings.secret_key
 ALGORITHM = "HS256"
-oauth_user_schema = OAuth2PasswordBearer(tokenUrl="/api/v1/users/login")
+oauth_user_schema = OAuth2PasswordBearer(tokenUrl="/api/v1/user/login")
 
 def create_jwt_token(data: dict) -> str:
     to_encode = data.copy()

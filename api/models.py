@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 import datetime
+from typing import Optional
+from typing import Annotated
+from fastapi import UploadFile
 
 
 class NewOrderFields(BaseModel):
@@ -8,14 +11,15 @@ class NewOrderFields(BaseModel):
 
 class Order(BaseModel):
     id: int
-    quantity: list['Quantity']
+    quantity: list["Quantity"]
     total_price: int
     user_id: int
 
 
 class Quantity(BaseModel):
-    product_id:int
-    quantity:int
+    product_id: int
+    quantity: int
+
 
 class User(BaseModel):
     id: int
@@ -25,11 +29,9 @@ class User(BaseModel):
     phone_number: int
     is_active: bool
     join_date: datetime.datetime
+    is_super_user: bool
 
 
-class UserLoginCredential(BaseModel):
-    username: str
-    password: str
 
 
 class OrderProduct(BaseModel):
@@ -44,36 +46,52 @@ class Product(BaseModel):
     price: int
     details: str
     # orders: list["Order"] | None
-    categories: list['Category']
+    categories: Optional[list["Category"]]
+    images: Optional[list["Image"]]
+
+
+class Image(BaseModel):
+    id: int
+    src: str
+    hash: str
+
 
 class Category(BaseModel):
-    slug:str
-    name:str
-
-
+    slug: str
+    name: str
 
 
 class NewCommentFields(BaseModel):
-    text:str
-    product_id:int
-
-
+    text: str
+    product_id: int
 
 
 class ProductComment(BaseModel):
-    text:str
-    date:str
-    is_verified:bool
-    by_user:int
+    text: str
+    date: str
+    is_verified: bool
+    by_user: int
 
 
 class ProductComments(BaseModel):
-    comments:list['ProductComment']
-    count:int
-    total:int
+    comments: list["ProductComment"]
+    count: int
+    total: int
 
 
 class AllCategories(BaseModel):
-    categories:list['Category']
-    count:int
-    total:int
+    categories: list["Category"]
+    count: int
+    total: int
+
+
+class NewProductFields(BaseModel):
+    name: str
+    stock: int
+    price: int
+    details: str
+    image_ids: Optional[list[int]] = []
+    categories: Optional[list[int | str]] = []
+
+
+

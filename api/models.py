@@ -20,6 +20,7 @@ class Quantity(BaseModel):
 
 
 class User(BaseModel):
+    
     id: int
     name: str
     username: str
@@ -28,6 +29,8 @@ class User(BaseModel):
     is_active: bool
     join_date: datetime.datetime
     is_super_user: bool
+    
+
 
 
 
@@ -96,3 +99,10 @@ class NewProductFields(BaseModel):
 class NewCategoryFields(BaseModel):
     slug:str
     name:str
+
+
+class UserUpdateInfo(BaseModel):
+    name:Optional[str]  =None
+    username:Optional[str]  =None
+    email:Optional[str] =None
+    phone_number:Optional[int] =None 

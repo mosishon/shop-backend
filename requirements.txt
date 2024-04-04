@@ -6,3 +6,7 @@ pyjwt
 bcrypt
 pytz
 ujson
+python-multipart
+pillow
+aiofiles
+aiosha256

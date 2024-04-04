@@ -3,13 +3,13 @@ from fastapi.responses import JSONResponse
 from dependencies import verify_user
 from database.models import Category
 from database.connection import engine
-from api.models import Category as PydanticCategory, AllCategories
+from api.models import Category as PydanticCategory, AllCategories,NewCategoryFields
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from dependencies import verify_user
 from typing import Annotated
 from database.models import User
-
+from utils.validations import is_slug
 
 
 
@@ -20,8 +20,28 @@ router = APIRouter(
     prefix="/category", tags=["category"], dependencies=[Depends(verify_user)]
 )
 
-# TODO new category should be by super user
-
+@router.post("/new/")
+async def new_category(category:NewCategoryFields):
+    if not is_slug(category.slug):
+        return JSONResponse(
+            {"code":"INVALID_SLUG","error":"slug is not valid"}
+        )
+    with Session(engine) as ses:
+        ses.begin()
+        try:
+            new_category_instance = Category()
+            new_category_instance.name = category.name
+            new_category_instance.slug = category.slug
+            ses.add(new_category_instance)
+            ses.commit()
+            return PydanticCategory(slug=new_category_instance.slug, name=new_category_instance.name)
+        except Exception as ex:
+            ses.rollback()
+            return JSONResponse(
+                {"code":"UNKNOWN","error":"unknown error"},500
+            )
+        
+            
 
 @router.get("/{category_id}")
 async def get_category_by_id(category_id: int):

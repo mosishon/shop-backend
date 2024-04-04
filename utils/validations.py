@@ -12,3 +12,6 @@ def is_image(file: BinaryIO):
     except Exception as e:
         # If an error occurs or the file is not a valid image
         return False
+
+def is_slug(string:str)->bool:
+    return string == string.lower().replace(" ","")

@@ -93,3 +93,6 @@ class NewProductFields(BaseModel):
 
 
 
+class NewCategoryFields(BaseModel):
+    slug:str
+    name:str

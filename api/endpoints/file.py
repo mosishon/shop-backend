@@ -1,28 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile
-from fastapi.responses import JSONResponse
 from dependencies import verify_user
-from database.models import Product
 from database.connection import engine
 from api.models import (
-    Product as PydanticProduct,
-    Order as PydanticOrder,
-    Quantity,
-    Category as PydanticCategory,
-    ProductComments,
-    ProductComment,
-    NewProductFields,
     Image as PydanticImage,
     User as PydanticUser,
-    UploadImageFields,
 )
-from sqlalchemy import select, func
+from sqlalchemy import select
 from sqlalchemy.orm import Session
-import ujson as json
 from dependencies import verify_user, is_super_user
 from typing import Annotated
-from database.models import User, Product, Order, Image, Category
+from database.models import User, Image
 from config import settings
-from sqlalchemy.exc import IntegrityError
 from utils.validations import is_image
 import asyncio
 import uuid

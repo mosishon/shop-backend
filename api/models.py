@@ -1,8 +1,6 @@
 from pydantic import BaseModel
 import datetime
 from typing import Optional
-from typing import Annotated
-from fastapi import UploadFile
 
 
 class NewOrderFields(BaseModel):

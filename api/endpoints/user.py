@@ -5,7 +5,6 @@ from dependencies import verify_user,verify_user_bypass_login_page
 from database.models import User
 from database.connection import engine
 from typing import Annotated
-from api.models import UserLoginCredential
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from auth import verify_password_hash,create_jwt_token

@@ -4,16 +4,13 @@ from dependencies import verify_user
 from database.models import Product, Comment
 from database.connection import engine
 from api.models import (
-    Product as PydanticProduct,
     NewCommentFields,
-    Category as PydanticCategory,
 )
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-import ujson as json
 from dependencies import verify_user
 from typing import Annotated
-from database.models import User, Product, Order
+from database.models import User, Product
 import datetime
 import pytz
 from config import settings

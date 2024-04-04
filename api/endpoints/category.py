@@ -4,13 +4,14 @@ from dependencies import verify_user
 from database.models import Category
 from database.connection import engine
 from api.models import Category as PydanticCategory, AllCategories
-from sqlalchemy import select, func
+from sqlalchemy import select
 from sqlalchemy.orm import Session
-import ujson as json
 from dependencies import verify_user
 from typing import Annotated
-from database.models import User, Product, Order
-from config import settings
+from database.models import User
+
+
+
 
 UserDepend = Annotated[User, Depends(verify_user)]
 

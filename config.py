@@ -8,5 +8,6 @@ class ApplicationCofiguration(BaseSettings):
     secret_key:str
     jwt_expire_after_minute:int
     str_time_format:str
+    static_files_path:str
 
 settings = ApplicationCofiguration()

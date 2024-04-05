@@ -1,0 +1,12 @@
+.env.sampel
+*.sqlite3
+test.py
+.git
+.gitigonre
+**/__pycache__
+__pycache__
+*/__pycache__
+venv/
+static_files/
+tests/
+Dockerfile

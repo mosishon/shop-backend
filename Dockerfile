@@ -5,8 +5,8 @@ RUN apt install -y supervisor
 RUN apt install -y python3-pip
 EXPOSE 8000
 RUN mkdir /app
-COPY requirements.txt /app
-RUN python3 -m pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /app 
+RUN python3 -m pip install --no-cache-dir -r /app/requirements.txt
 COPY . /app
 WORKDIR /app
 

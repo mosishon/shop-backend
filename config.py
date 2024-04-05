@@ -9,5 +9,6 @@ class ApplicationCofiguration(BaseSettings):
     jwt_expire_after_minute:int
     str_time_format:str
     static_files_path:str
+    database_uri:str
 
 settings = ApplicationCofiguration()

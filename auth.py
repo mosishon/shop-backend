@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 
 import jwt
 import bcrypt
-from datetime import datetime, timedelta,UTC
+from datetime import datetime, timedelta
 from typing import Union
 from config import settings
 from pytz import timezone

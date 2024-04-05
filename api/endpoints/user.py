@@ -29,7 +29,7 @@ async def user_login(login_credential:Annotated[OAuth2PasswordRequestForm,Depend
             return {"access_token":token,"token_type":"bearer"}
         raise HTTPException(401,"Unauthorized")
 
-@router.pathch("/change_password/")
+@router.patch("/change_password/")
 async def change_password(change_fields:ChangePasswordFields,user:UserDepend):
     with Session(engine) as ses:
         try:

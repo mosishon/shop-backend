@@ -6,7 +6,6 @@ from sqlalchemy import Table, Column
 from sqlalchemy import ForeignKey
 import datetime
 from database.connection import engine
-from auth import create_password_hash
 
 
 class Base(DeclarativeBase):
@@ -91,7 +90,7 @@ class Product(Base):
     )
     comments: Mapped[list["Comment"]] = relationship(back_populates="product")
     images: Mapped[list["Image"]] = relationship(
-        secondary=ImagesAssoiation, back_populates="products"
+        secondary=ImagesAssoiation, back_populates="products",cascade="all,delete-orphan"
     )
     update_date: Mapped[datetime.datetime] = mapped_column(
         default=datetime.datetime.now
@@ -115,7 +114,7 @@ class Comment(Base):
 class Order(Base):
     __tablename__ = "orders"
     id: Mapped[int] = mapped_column(primary_key=True)
-    quantity: Mapped[str] = mapped_column()  # json formated string for quantity
+    quantity: Mapped[str] = mapped_column()  # str(json) for quantity
     total_price: Mapped[int] = mapped_column()
 
     user: Mapped[User] = relationship(back_populates="orders")
@@ -138,6 +137,8 @@ def create_new_user(
     is_active: bool = None,
     join_date: datetime.datetime = None,
 ):
+    from auth import create_password_hash
+    
     password = create_password_hash(password)
     user = User(
         name=name,

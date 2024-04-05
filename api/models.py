@@ -106,3 +106,9 @@ class UserUpdateInfo(BaseModel):
     username:Optional[str]  =None
     email:Optional[str] =None
     phone_number:Optional[int] =None 
+
+
+
+class ChangePasswordFields(BaseModel):
+    old_password:str
+    new_password:str

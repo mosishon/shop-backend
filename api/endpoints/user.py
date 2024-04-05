@@ -7,8 +7,8 @@ from database.connection import engine
 from typing import Annotated
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from auth import verify_password_hash,create_jwt_token
-from api.models import UserUpdateInfo,User as PydanticUser
+from auth import verify_password_hash,create_jwt_token,create_password_hash
+from api.models import UserUpdateInfo,User as PydanticUser,ChangePasswordFields
 router = APIRouter(prefix="/user",tags=['user'],dependencies=[Depends(verify_user_bypass_login_page)])
 
 
@@ -28,6 +28,35 @@ async def user_login(login_credential:Annotated[OAuth2PasswordRequestForm,Depend
             token = create_jwt_token({"uid":user.id})
             return {"access_token":token,"token_type":"bearer"}
         raise HTTPException(401,"Unauthorized")
+
+@router.pathch("/change_password/")
+async def change_password(change_fields:ChangePasswordFields,user:UserDepend):
+    with Session(engine) as ses:
+        try:
+            user_instance = ses.scalar(select(User).where(User.id==user.id))
+            old_password_verified = verify_password_hash(change_fields.old_password,user_instance.password)
+            if not old_password_verified:
+                raise HTTPException(400,{
+                    "code":"OLD_PASSWORD_WRONG","error":"old password is wrong"
+                })
+            if len(change_fields.new_password)<8:
+                raise HTTPException(400,{
+                    "code":"NEW_PASSWORD_WEAK","error":"new password at least should be 8 character"
+                })
+            new_password = create_password_hash(change_fields.new_password)
+            user_instance.password = new_password
+            ses.commit()
+            return JSONResponse({
+                "ok":True
+            })
+        except Exception as ex:
+            ses.rollback()
+            print(ex)
+            return JSONResponse(
+                {"code": "UNKNOWN", "error": "Unknown error"}, 500
+            )
+        
+
 
 @router.patch("/update_info/")
 async def update_info(update_data:UserUpdateInfo,user:UserDepend):

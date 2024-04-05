@@ -178,13 +178,3 @@ def new_category(session: Session, slug, name, products):
 
 
 Base.metadata.create_all(engine)
-
-# create_new_user("mostafa arshadi","mostafa.arshadi@outlook.com",9164230882,"mosishon","fuckingpass",True,datetime.datetime.now())
-# with Session(engine) as ses,ses.begin():
-#     cat1 = Category(slug="slug_1",name="slug1")
-#     cat2 = Category(slug="slug_2",name="slug2")
-#     cat3 = Category(slug="slug_3",name="slug3")
-#     prod = Product(name="name",stock=2,price=450000,details="heloo details",orders=[],categories=[cat1,cat2,cat3])
-
-
-#     ses.add_all([cat1,cat2,cat3,prod])

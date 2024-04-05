@@ -9,4 +9,5 @@ ujson
 python-multipart
 pillow
 aiofiles
-aiosha256
+psycopg2-binary
+#mysqlclient # for mysql

@@ -65,6 +65,7 @@ This project is a shop management system developed using FastApi and SQLAlchemy.
 1. Clone the repository: `git clone https://github.com/mosishon/shop-backend.git`
 2. Build Container: `docker build -t shop .`
 3. Rename `.env.sample` to `.env` and update the `.env` file with the appropriate values for your environment settings.
+4. Run container as you wish
 
 ## Usage
 1. Define your database schema by extending the provided base class `Base` and creating your model classes.
@@ -73,6 +74,7 @@ This project is a shop management system developed using FastApi and SQLAlchemy.
 4. Utilize Docker for containerization and Supervisor for process management to deploy and monitor your application.
 
 ## Contributors
+- [mosTafa](https://github.com/mosishon/)
 - [Your Name](https://github.com/your_username)
 
 ## License
